@@ -1,5 +1,5 @@
-test("Expect one to be one lol", () => {
-  // expect is always a softcode  and toBe is always a hardcoded.
-  expect(1).toBe(1);
-});
+const calculator = require("../models/calculator");
 
+test("add 2 plus 2 should be 4", () => {
+  expect(calculator.addNumbers(2, 2)).toBe(4);
+});

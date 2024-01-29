@@ -10,11 +10,15 @@ async function status(request, response) {
   const postgresVersion = await database.query("SHOW server_version;");
 
   const databaseName = process.env.POSTGRES_DB;
-  const databaseOpenedConnectionsResult = await database.query(
-    `SELECT count(*)::int FROM pg_stat_activity where datname = '${databaseName}';`,
-  );
+  const databaseOpenedConnectionsResult = await database.query({
+    text: "SELECT count(*)::int FROM pg_stat_activity where datname = $1;",
+    values: [databaseName],
+  });
 
-  console.log(databaseOpenedConnectionsResult.rows[0].count);
+  const databaseOpenedConnectionsValue =
+    databaseOpenedConnectionsResult.rows[0].count;
+
+  console.log(databaseOpenedConnectionsValue);
 
   response.status(200).json({
     updated_at: updatedAt,

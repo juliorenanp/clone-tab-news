@@ -21,6 +21,7 @@ test("Status info should be returned and valid from status page", async () => {
   expect(parseInt(version)).toBeGreaterThan(0);
 });
 
+// eslint-disable-next-line jest/expect-expect
 test("SQL Injection test", async () => {
   await fetch(
     "http://localhost:3000/api/v1/status?databaseName='; SELECT PG_SLEEP(1); --",
